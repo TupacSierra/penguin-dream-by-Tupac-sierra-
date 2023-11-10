@@ -6,6 +6,7 @@ struct Player
 	Vector2 Pos;
 	Vector2 InitPos;
 	float Speed;
-	int Height;
-	int Width;
+	float Height;
+	float Width;
+	bool Jump;
 };
