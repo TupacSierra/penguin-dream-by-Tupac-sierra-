@@ -3,7 +3,7 @@
 typedef enum GameScreen { TITLE = 0, GAME, CREDIT, EXIT } GameScreen;
 
 
-int GameLoop();
+void GameLoop();
 
 void MainMenu() {
 	const int height = 768;
@@ -12,7 +12,7 @@ void MainMenu() {
 
 	int option = 0;
 
-	InitWindow(width, height, "Samurai Rush");
+	InitWindow(width, height, "Penguin Dream");
 
 	GameScreen currentScreen = TITLE;
 
@@ -98,12 +98,12 @@ void MainMenu() {
 		}
 
 		BeginDrawing();
-		ClearBackground(MAROON);
+		ClearBackground(BLACK);
 
 		switch (currentScreen)
 		{
 		case TITLE:
-			DrawText("Samurai Rush", GetScreenWidth() / 3.3, GetScreenHeight() / 4, 60, GOLD);
+			DrawText("Penguin Dream", GetScreenWidth() / 3.3, GetScreenHeight() / 4, 60, GOLD);
 			DrawText("Use the Mouse and Left Click", GetScreenWidth() / 2.6, GetScreenHeight() / 1.1, 15, GRAY);
 			if (Mouse.y >= (GetScreenHeight() / 2 - 20) && Mouse.y <= (GetScreenHeight() / 2 + 30) && Mouse.x >= ((GetScreenWidth() / 2.1) - 40) && Mouse.x <= ((GetScreenWidth() / 2.1) + 60))
 			{
@@ -134,7 +134,7 @@ void MainMenu() {
 			break;
 		case GAME:
 			DrawText("How to Play", GetScreenWidth() / 3, GetScreenHeight() / 9, 60, GOLD);
-			DrawText("To play the game, you will be using the Mouse and its Left and Right clicks", GetScreenWidth() / 9, GetScreenHeight() / 5, 20, GOLD);
+			DrawText("To play the game, you will be using the W and the Mouse to use the Menu", GetScreenWidth() / 9, GetScreenHeight() / 5, 20, GOLD);
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
 				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GRAY);
@@ -154,7 +154,7 @@ void MainMenu() {
 			}
 			break;
 		case CREDIT:
-			DrawText("Game made by Joan Manuel Rivas Cepeda", GetScreenWidth() / 7.8, GetScreenHeight() / 2, 40, GOLD);
+			DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", GetScreenWidth() / 7.8, GetScreenHeight() / 2, 40, GOLD);
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
 				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GRAY);

@@ -1,10 +1,10 @@
 #include <iostream>
 #include "raylib.h"
-void GameLoop();
+void MainMenu();
 
 int main()
 {
 	srand(time(NULL));
 	SetExitKey(KEY_NULL);
-	GameLoop();
+	MainMenu();
 }

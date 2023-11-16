@@ -163,9 +163,9 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="MainMenu.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\main.cpp" />
+    <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Player.cpp" />
   </ItemGroup>
   <ItemGroup>
