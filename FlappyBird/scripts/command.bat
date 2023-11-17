@@ -2,8 +2,8 @@
 
 Echo Git Config
 
-git config user.email "joan.rivas.cepeda@gmail.com"
-git config user.name "JMG3N0"
+git config user.email "tupacas1998@gmail.com"
+git config user.name "TupacSierra"
 
 Echo Git Config Completo
 
