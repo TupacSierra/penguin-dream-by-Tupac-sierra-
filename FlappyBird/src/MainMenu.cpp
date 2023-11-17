@@ -154,7 +154,9 @@ void MainMenu() {
 			}
 			break;
 		case CREDIT:
-			DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", GetScreenWidth() / 7.8, GetScreenHeight() / 2, 40, GOLD);
+			DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", GetScreenWidth() / 2 - 320, GetScreenHeight() / 2, 25, GOLD);
+			DrawText("Game Code Fixes By Tupac Sierra", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 50, 25, GOLD);
+
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
 				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GRAY);

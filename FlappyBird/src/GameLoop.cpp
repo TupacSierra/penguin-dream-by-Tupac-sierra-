@@ -6,7 +6,9 @@ void InitPlayer(Player& player);
 void GameLoop()
 {
 	Player player;
+	Player player2;
 	InitPlayer(player);
+	InitPlayer(player2);
 	const int height = 768;
 	const int width = 1024;
 
@@ -73,6 +75,8 @@ void GameLoop()
 			JumpCounter = 960;
 		}
 
+
+		
 		if (player.Jump == true)
 		{
 			if (JumpCounter > 0)
@@ -94,13 +98,45 @@ void GameLoop()
 		{
 				player.Pos.y += FallSpeed * GetFrameTime();
 		}
-		
+
+
+
+
+		if (IsKeyPressed(KEY_UP) && player2.Pos.y > 0)
+		{
+			player2.Jump = true;
+			JumpCounter = 960;
+		}
+
+		if (player2.Jump == true)
+		{
+			if (JumpCounter > 0)
+			{
+				player2.Pos.y -= player2.Speed * GetFrameTime();
+				if (player2.Pos.y < 0)
+				{
+					player2.Pos.y = 0;
+				}
+			}
+			JumpCounter--;
+			if (JumpCounter == 0)
+			{
+				player2.Jump = false;
+			}
+		}
+
+		if (player2.Jump == false)
+		{
+			player2.Pos.y += FallSpeed * GetFrameTime();
+		}
+
 
 		
 		ClearBackground(BLACK);
 		DrawTextureEx(Background, {BackgroundSpeed,0}, 0, 2, WHITE);
 		DrawTextureEx(Background, {static_cast<float>(Background.width *2)+BackgroundSpeed,0}, 0, 2, WHITE);
 		DrawRectangle(player.Pos.x, player.Pos.y, player.Width, player.Height, DARKBLUE);
+		DrawRectangle(player2.Pos.x + 25, player2.Pos.y, player2.Width, player2.Height, DARKBLUE);
 		//Pipes
 		DrawRectangle(PipeX,0, player.Width, FreeSpace_A, DARKGREEN); //Top
 		DrawRectangle(PipeX, (GetScreenHeight()-FreeSpace_B), player.Width, FreeSpace_B, DARKGREEN); //Bottom
