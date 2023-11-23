@@ -1,16 +1,16 @@
 #include "raylib.h"
+#include "GameLoop.h"
+typedef enum GameScreen { TITLE = 0, TUTORIAL,GAME, CREDIT, EXIT } GameScreen;
 
-typedef enum GameScreen { TITLE = 0, GAME, CREDIT, EXIT } GameScreen;
 
-
-void GameLoop();
+void DrawGame();
 
 void MainMenu() {
 	const int height = 768;
 	const int width = 1024;
 	Vector2 Mouse = { -100.0f, -100.0f };
 
-	int option = 0;
+	
 
 	InitWindow(width, height, "Penguin Dream");
 
@@ -26,7 +26,8 @@ void MainMenu() {
 			{
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
-					currentScreen = GAME;
+					currentScreen = TUTORIAL;
+				
 				}
 			}
 			if (Mouse.y >= (GetScreenHeight() / 1.7 - 20) && Mouse.y <= (GetScreenHeight() / 1.7 + 30) && Mouse.x >= ((GetScreenWidth() / 2.1) - 40) && Mouse.x <= ((GetScreenWidth() / 2.1) + 100))
@@ -44,7 +45,7 @@ void MainMenu() {
 				}
 			}
 			break;
-		case GAME:
+		case TUTORIAL:
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
@@ -56,10 +57,15 @@ void MainMenu() {
 			{
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
-					currentScreen = TITLE;
-					GameLoop();
+					currentScreen = GAME;
+					InitGame();
+	
 				}
 			}
+			break;
+		case GAME:
+			UpdateGame();
+
 			break;
 		case CREDIT:
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
@@ -73,7 +79,7 @@ void MainMenu() {
 			{
 				if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
 				{
-					currentScreen = GAME;
+					currentScreen = TUTORIAL;
 				}
 			}
 			break;
@@ -103,98 +109,99 @@ void MainMenu() {
 		switch (currentScreen)
 		{
 		case TITLE:
-			DrawText("Penguin Dream", GetScreenWidth() / 3.3, GetScreenHeight() / 4, 60, GOLD);
-			DrawText("Use the Mouse and Left Click", GetScreenWidth() / 2.6, GetScreenHeight() / 1.1, 15, GRAY);
-			if (Mouse.y >= (GetScreenHeight() / 2 - 20) && Mouse.y <= (GetScreenHeight() / 2 + 30) && Mouse.x >= ((GetScreenWidth() / 2.1) - 40) && Mouse.x <= ((GetScreenWidth() / 2.1) + 60))
+			DrawText("Penguin Dream", static_cast<int> (width) / 3, static_cast<int> (height) / 4, 60, GOLD);
+			DrawText("Use the Mouse and Left Click", static_cast<int>(GetScreenWidth()) / 2 - 20, static_cast<int>(GetScreenHeight()) / 2 + 245, 15, GRAY);
+			if (Mouse.y >= (GetScreenHeight() / 2 - 20) && Mouse.y <= (GetScreenHeight() / 2 + 30) && Mouse.x >= ((GetScreenWidth() / 2) - 40) && Mouse.x <= ((GetScreenWidth() / 2) + 60))
 			{
-				DrawText("Play", GetScreenWidth() / 2.2, GetScreenHeight() / 2, 30, GRAY);
+				DrawText("Play", static_cast<int>(GetScreenWidth()) / 2, GetScreenHeight() / 2 -50, 30, GRAY);
 			}
 			else
 			{
-				DrawText("Play", GetScreenWidth() / 2.2, GetScreenHeight() / 2, 30, GOLD);
+				DrawText("Play", static_cast<int>(GetScreenWidth()) / 2, GetScreenHeight() / 2 - 50, 30, GOLD);
 			}
 
 			if (Mouse.y >= (GetScreenHeight() / 1.7 - 20) && Mouse.y <= (GetScreenHeight() / 1.7 + 30) && Mouse.x >= ((GetScreenWidth() / 2.1) - 40) && Mouse.x <= ((GetScreenWidth() / 2.1) + 100))
 			{
-				DrawText("Credits", GetScreenWidth() / 2.2, GetScreenHeight() / 1.7, 30, GRAY);
+				DrawText("Credits", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2 -20, 30, GRAY);
 			}
 			else
 			{
-				DrawText("Credits", GetScreenWidth() / 2.2, GetScreenHeight() / 1.7, 30, GOLD);
+				DrawText("Credits", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2 - 20, 30, GOLD);
 			}
 			if (Mouse.y >= (GetScreenHeight() / 1.5 - 20) && Mouse.y <= (GetScreenHeight() / 1.5 + 30) && Mouse.x >= ((GetScreenWidth() / 2.1) - 40) && Mouse.x <= ((GetScreenWidth() / 2.1) + 50))
 			{
-				DrawText("Exit", GetScreenWidth() / 2.2, GetScreenHeight() / 1.5, 30, GRAY);
+				DrawText("Exit", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2 + 10, 30, GRAY);
 			}
 			else
 			{
-				DrawText("Exit", GetScreenWidth() / 2.2, GetScreenHeight() / 1.5, 30, GOLD);
+				DrawText("Exit", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2 + 10, 30, GOLD);
 			}
 
 			break;
-		case GAME:
+		case TUTORIAL:
 			DrawText("How to Play", GetScreenWidth() / 3, GetScreenHeight() / 9, 60, GOLD);
 			DrawText("To play the game, you will be using the W and the Mouse to use the Menu", GetScreenWidth() / 9, GetScreenHeight() / 5, 20, GOLD);
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
-				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GRAY);
+				DrawText("Go Back", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 1, 20, GRAY);
 			}
 			else
 			{
-				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GOLD);
+				DrawText("Go Back", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
 			}
 
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 15) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 100))
 			{
-				DrawText("Play Game", GetScreenWidth() / 1.8, GetScreenHeight() / 1.1, 20, GRAY);
+				DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GRAY);
 			}
 			else
 			{
-				DrawText("Play Game", GetScreenWidth() / 1.8, GetScreenHeight() / 1.1, 20, GOLD);
+				DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
 			}
 			break;
+		case GAME:
+			DrawGame();
+			break;
 		case CREDIT:
-			DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", GetScreenWidth() / 2 - 320, GetScreenHeight() / 2, 25, GOLD);
-			DrawText("Game Code Fixes By Tupac Sierra", GetScreenWidth() / 2 - 200, GetScreenHeight() / 2 + 50, 25, GOLD);
-
+			DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", static_cast<int>(GetScreenWidth()) / 8, GetScreenHeight() / 2, 40, GOLD);
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 10) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
-				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GRAY);
+				DrawText("Go Back", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 1, 20, GRAY);
 			}
 			else
 			{
-				DrawText("Go Back", GetScreenWidth() / 2.5, GetScreenHeight() / 1.1, 20, GOLD);
+				DrawText("Go Back", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
 			}
 
 			if (Mouse.y >= ((GetScreenHeight() / 1.1) - 15) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 100))
 			{
-				DrawText("Play Game", GetScreenWidth() / 1.8, GetScreenHeight() / 1.1, 20, GRAY);
+				DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 1, static_cast<int>(GetScreenHeight()) / 1, 20, GRAY);
 			}
 			else
 			{
-				DrawText("Play Game", GetScreenWidth() / 1.8, GetScreenHeight() / 1.1, 20, GOLD);
+				DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
 			}
 
 
 			break;
 		case EXIT:
-			DrawText("You sure you want to close the game ?", GetScreenWidth() / 7.5, GetScreenHeight() / 2, 40, GOLD);
+			DrawText("You sure you want to close the game ?", static_cast<int>(GetScreenWidth()) / 8, GetScreenHeight() / 2, 40, GOLD);
 			if (Mouse.y >= ((GetScreenHeight() / 1.5) - 10) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
 			{
-				DrawText("Yes", GetScreenWidth() / 2.5, GetScreenHeight() / 1.5, 30, GRAY);
+				DrawText("Yes", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 2, 30, GRAY);
 			}
 			else
 			{
-				DrawText("Yes", GetScreenWidth() / 2.5, GetScreenHeight() / 1.5, 30, GOLD);
+				DrawText("Yes", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 2, 30, GOLD);
 			}
 
 			if (Mouse.y >= ((GetScreenHeight() / 1.5) - 15) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 80))
 			{
-				DrawText("No", GetScreenWidth() / 1.8, GetScreenHeight() / 1.5, 30, GRAY);
+				DrawText("No", static_cast<int>( GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2, 30, GRAY);
 			}
 			else
 			{
-				DrawText("No", GetScreenWidth() / 1.8, GetScreenHeight() / 1.5, 30, GOLD);
+				DrawText("No", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2, 30, GOLD);
 			}
 			break;
 		default:
