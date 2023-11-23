@@ -164,14 +164,23 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="src\Credits.cpp" />
+    <ClCompile Include="src\Exit.cpp" />
     <ClCompile Include="src\GameLoop.cpp" />
     <ClCompile Include="src\main.cpp" />
     <ClCompile Include="src\MainMenu.cpp" />
     <ClCompile Include="src\Player.cpp" />
+    <ClCompile Include="src\Tittle.cpp" />
+    <ClCompile Include="src\Tutotial.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Credits.h" />
+    <ClInclude Include="src\Exit.h" />
     <ClInclude Include="src\GameLoop.h" />
+    <ClInclude Include="src\GameScreenEnum.h" />
     <ClInclude Include="src\Player.h" />
+    <ClInclude Include="src\Tittle.h" />
+    <ClInclude Include="src\Tutotial.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
