@@ -56,9 +56,9 @@ void ExitGame()
 void UpdateGame()
 {
     // Move the background, midground, and foreground
-    BackgroundSpeed -= 0.01f;
-    MidgroundSpeed -= 0.05f;
-    ForegroundSpeed -= 0.1f;
+    BackgroundSpeed -= 0.001f;
+    MidgroundSpeed -= 0.009f;
+    ForegroundSpeed -= 0.02f;
 
     if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
     if (MidgroundSpeed <= -Midground.width * 2) MidgroundSpeed = 0;
@@ -151,8 +151,16 @@ void DrawGame()
 {
 
 	DrawTextureEx(Background, { BackgroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(Midground, { MidgroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(Foreground, { ForegroundSpeed,0 }, 0, 2, WHITE);
+   
+
 	DrawTextureEx(Background, { static_cast<int>(Background.width * 2) + BackgroundSpeed,0 }, 0, 2, WHITE);
-    DrawRectangle(static_cast<int>(player.Pos.x), static_cast<int>(player.Pos.y), static_cast<int>(player.Width), static_cast<int>(player.Height), DARKBLUE);
+    DrawTextureEx(Midground, { static_cast<int>(Midground.width * 2) + MidgroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(Foreground, { static_cast<int>(Foreground.width * 2) + ForegroundSpeed,0 }, 0, 2, WHITE);
+  
+
+    DrawRectangle(static_cast<int>(player.Pos.x), static_cast<int>(player.Pos.y), static_cast<int>(player.Width), static_cast<int>(player.Height), RED);
 	//Pipes
     DrawRectangle(static_cast<int>(PipeX), 0, static_cast<int>(player.Width), FreeSpace_A, DARKGREEN); // Top
     DrawRectangle(static_cast<int>(PipeX), (GetScreenHeight() - FreeSpace_B), static_cast<int>(player.Width), FreeSpace_B, DARKGREEN); // Bottom
