@@ -12,15 +12,7 @@ void TutotialLogic(Vector2& Mouse, GameScreen& currentScreen)
 			currentScreen = GameScreen::TITLE;
 		}
 	}
-	if (Mouse.y >= ((GetScreenHeight() / 1.1) - 15) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 100))
-	{
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-		{
-			currentScreen = GameScreen::GAME;
-			InitGame();
-
-		}
-	}
+	
 }
 
 void DrawTutotial(Vector2& Mouse)
@@ -36,12 +28,5 @@ void DrawTutotial(Vector2& Mouse)
 		DrawText("Go Back", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
 	}
 
-	if (Mouse.y >= ((GetScreenHeight() / 1.1) - 15) && Mouse.y <= ((GetScreenHeight() / 1.1) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 100))
-	{
-		DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GRAY);
-	}
-	else
-	{
-		DrawText("Play Game", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 1, 20, GOLD);
-	}
+
 }

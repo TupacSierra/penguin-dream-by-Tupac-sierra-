@@ -14,8 +14,17 @@ static bool PipeReset = true;
 static Texture2D Background;
 static Texture2D Midground;
 static Texture2D Foreground;
- const int height = 768;
- const int width = 1024;
+const int height = 768;
+const int width = 1024;
+
+bool scoredForTube = false;
+int score = 0;
+Vector2 playerDestination;
+
+bool CheckCollisionWithTubes() {
+   
+    return false; 
+}
 
 void InitPlayer(Player& player);
 void InitGame()
@@ -35,100 +44,117 @@ void InitGame()
 	ForegroundSpeed = 0;
 	PipeReset = true;
 }
+
 void ExitGame()
 {
-	UnloadTexture(Background);
-	UnloadTexture(Foreground);
-	UnloadTexture(Midground);
-
+    UnloadTexture(Background);
+    UnloadTexture(Foreground);
+    UnloadTexture(Midground);
 }
 
 void UpdateGame()
 {
-	BackgroundSpeed -= 0.01f;
-	MidgroundSpeed -= 0.05f;
-	ForegroundSpeed -= 0.1f;
+    // Move the background, midground, and foreground
+    BackgroundSpeed -= 0.01f;
+    MidgroundSpeed -= 0.05f;
+    ForegroundSpeed -= 0.1f;
 
-	if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
-	if (MidgroundSpeed <= -Midground.width * 2) MidgroundSpeed = 0;
-	if (ForegroundSpeed <= -Foreground.width * 2) ForegroundSpeed = 0;
+    if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
+    if (MidgroundSpeed <= -Midground.width * 2) MidgroundSpeed = 0;
+    if (ForegroundSpeed <= -Foreground.width * 2) ForegroundSpeed = 0;
 
+    // Move the tubes to the left
+    PipeX -= 200.0f * GetFrameTime();
 
-	if (PipeReset == true)
-	{
+    // Check if the player collided or went out of bounds
+    if (player.Pos.y > height || CheckCollisionWithTubes()) {
+        // Handle game over state
+        // You might want to set your game state accordingly
+        // gameState = GAME_OVER;
+        player.Pos.y = player.InitPos.y;
+        player.Pos.x = player.InitPos.x;
+        PipeReset = true;
+        player.Jump = false;
+        BackgroundSpeed = 0;
+        MidgroundSpeed = 0;
+        ForegroundSpeed = 0;
+        // Additional logic for game over can be added here
+    }
 
-		int result;
-		PipeX = static_cast<float>(GetScreenWidth());
-		do
-		{
-			FreeSpace_A = rand() % (GetScreenHeight() / 2);
-			FreeSpace_B = rand() % (GetScreenHeight() / 2);
-			result = FreeSpace_A - FreeSpace_B;
-		} while (result <= player.Height * 1.5 || FreeSpace_B <= 160);
+    // If the player presses W, initiate a jump
+    if (IsKeyPressed(KEY_W) && player.Pos.y > 0) {
+        player.Jump = true;
+        JumpCounter = 960;
+    }
 
-		PipeReset = false;
-	}
+    // Handle player jump
+    if (player.Jump == true) {
+        if (JumpCounter > 0) {
+            player.Pos.y -= player.Speed * GetFrameTime();
+            if (player.Pos.y < 0) {
+                player.Pos.y = 0;
+            }
+        }
+        JumpCounter--;
+        if (JumpCounter == 0) {
+            player.Jump = false;
+        }
+    }
 
-	PipeX -= 200.0f * GetFrameTime();
+    // If the player is not jumping, apply falling speed
+    if (player.Jump == false) {
+        player.Pos.y += FallSpeed * GetFrameTime();
+    }
 
-	if (player.Pos.x >= (PipeX - player.Width / 2) && player.Pos.x <= (PipeX + player.Width / 2) && player.Pos.y <= FreeSpace_A || player.Pos.x >= (PipeX - player.Width / 2) && player.Pos.x <= (PipeX + player.Width / 2) && player.Pos.y >= (GetScreenHeight() - FreeSpace_B) || player.Pos.y > height)
-	{
-		player.Pos.y = player.InitPos.y;
-		player.Pos.x = player.InitPos.x;
-		PipeReset = true;
-		player.Jump = false;
-		BackgroundSpeed = 0;
-		MidgroundSpeed = 0;
-		ForegroundSpeed = 0;
-	}
+    // Handle tube movement and scoring
+    HandleTubeMovementAndScoring();
 
-	if (PipeX < 0)
-	{
-		PipeReset = true;
-	}
-
-	if (IsKeyPressed(KEY_W) && player.Pos.y > 0)
-	{
-		player.Jump = true;
-		JumpCounter = 960;
-	}
-
-	if (player.Jump == true)
-	{
-		if (JumpCounter > 0)
-		{
-			player.Pos.y -= player.Speed * GetFrameTime();
-			if (player.Pos.y < 0)
-			{
-				player.Pos.y = 0;
-			}
-		}
-		JumpCounter--;
-		if (JumpCounter == 0)
-		{
-			player.Jump = false;
-		}
-	}
-
-	if (player.Jump == false)
-	{
-		player.Pos.y += FallSpeed * GetFrameTime();
-	}
-
-
-
-
+    // Update the player destination for rendering
+    playerDestination.x = player.Pos.x;
+    playerDestination.y = player.Pos.y;
 }
+void HandleTubeMovementAndScoring()
+{
+    // Move the tubes to the left
+    PipeX -= 200.0f * GetFrameTime();
 
+    // Reset tubes when they go off-screen
+    if (PipeX + player.Width <= 0) {
+        PipeX = static_cast<float>(GetScreenWidth());
+        scoredForTube = false;
+    }
+
+    // Score when passing through a tube
+    if (PipeX + player.Width <= 0) {
+        PipeX = static_cast<float>(GetScreenWidth());
+        scoredForTube = false;
+    }
+
+    // Check for collisions with the tubes
+    bool collided = CheckCollisionWithTubes();
+    if (collided) {
+        // Handle collision logic
+        // You might want to set your game state accordingly
+        // gameState = GAME_OVER;
+        player.Pos.y = player.InitPos.y;
+        player.Pos.x = player.InitPos.x;
+        PipeReset = true;
+        player.Jump = false;
+        BackgroundSpeed = 0;
+        MidgroundSpeed = 0;
+        ForegroundSpeed = 0;
+        // Additional logic for game over can be added here
+    }
+}
 void DrawGame()
 {
 
 	DrawTextureEx(Background, { BackgroundSpeed,0 }, 0, 2, WHITE);
 	DrawTextureEx(Background, { static_cast<int>(Background.width * 2) + BackgroundSpeed,0 }, 0, 2, WHITE);
-	DrawRectangle(static_cast<int>(player.Pos.x), static_cast<int>(player.Pos.y), static_cast<int>(player.Width), static_cast<int>(player.Height), DARKBLUE);
+    DrawRectangle(static_cast<int>(player.Pos.x), static_cast<int>(player.Pos.y), static_cast<int>(player.Width), static_cast<int>(player.Height), DARKBLUE);
 	//Pipes
-	DrawRectangle(static_cast<int>(PipeX), 0, static_cast<int>(player.Width), FreeSpace_A, DARKGREEN); //Top
-	DrawRectangle(static_cast<int>(PipeX), (GetScreenHeight() - FreeSpace_B), static_cast<int>(player.Width), FreeSpace_B, DARKGREEN); //Bottom
+    DrawRectangle(static_cast<int>(PipeX), 0, static_cast<int>(player.Width), FreeSpace_A, DARKGREEN); // Top
+    DrawRectangle(static_cast<int>(PipeX), (GetScreenHeight() - FreeSpace_B), static_cast<int>(player.Width), FreeSpace_B, DARKGREEN); // Bottom
 
 	DrawText("0.1", 990, 735, 30, WHITE);
 
