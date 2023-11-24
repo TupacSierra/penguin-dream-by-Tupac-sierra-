@@ -2,24 +2,25 @@
 
 static Player player;
 
-static int JumpCounter = 0;
-static int FreeSpace_A = 0;
-static int FreeSpace_B = 0;
-static float PipeX = 0;
-static float FallSpeed = 250;
-static float BackgroundSpeed = 0;
-static float MidgroundSpeed = 0;
-static float ForegroundSpeed = 0;
-static bool PipeReset = true;
-static Texture2D Background;
-static Texture2D Midground;
-static Texture2D Foreground;
-const int height = 768;
-const int width = 1024;
+static int jumpCounter = 0;
+static int freeSpace_A = 0;
+static int freeSpace_B = 0;
+static float pipeX = 0;
+static float fallSpeed = 250;
+static float backGroundSpeed = 0;
+static float midGroundSpeed = 0;
+static float foreGroundSpeed = 0;
+static bool pipeReset = true;
+static Texture2D backGround;
+static Texture2D midGround;
+static Texture2D foreGround;
+const int heightScreen = 768;
+const int widthScreen = 1024;
 
-const float Gravity = 1000.0f;
-const float JumpSpeed = 500.0f;
-const float JumpHeight = 100.0f;
+
+const float gravity = 1000.0f;
+const float jumpSpeed = 500.0f;
+const float jumpHeight = 100.0f;
 
 
 bool scoredForTube = false;
@@ -33,100 +34,101 @@ bool CheckCollisionWithTubes() {
 }
 
 void InitPlayer(Player& player);
+
 void InitGame()
 {
 	InitPlayer(player);
-	Background = LoadTexture("res/BackGround.png");
-	Midground = LoadTexture("res/MidGround.png");
-	Foreground = LoadTexture("res/ForeGround.png");
+	backGround = LoadTexture("res/BackGround.png");
+	midGround = LoadTexture("res/MidGround.png");
+	foreGround = LoadTexture("res/ForeGround.png");
 
-	JumpCounter = 0;
-	FreeSpace_A = 0;
-	FreeSpace_B = 0;
-	PipeX = (float)GetScreenWidth();
-	FallSpeed = 250;
-	BackgroundSpeed = 0;
-	MidgroundSpeed = 0;
-	ForegroundSpeed = 0;
-	PipeReset = true;
+	jumpCounter = 0;
+	freeSpace_A = 0;
+	freeSpace_B = 0;
+	pipeX = (float)GetScreenWidth();
+	fallSpeed = 250;
+	backGroundSpeed = 0;
+	midGroundSpeed = 0;
+	foreGroundSpeed = 0;
+	pipeReset = true;
 }
 
 void ExitGame()
 {
-    UnloadTexture(Background);
-    UnloadTexture(Foreground);
-    UnloadTexture(Midground);
+    UnloadTexture(backGround);
+    UnloadTexture(foreGround);
+    UnloadTexture(midGround);
 }
 
 void UpdateGame()
 {
     // Move the background, midground, and foreground
-    BackgroundSpeed -= 0.001f;
-    MidgroundSpeed -= 0.009f;
-    ForegroundSpeed -= 0.02f;
+    backGroundSpeed -= 0.001f;
+    midGroundSpeed -= 0.009f;
+    foreGroundSpeed -= 0.02f;
 
-    if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
-    if (MidgroundSpeed <= -Midground.width * 2) MidgroundSpeed = 0;
-    if (ForegroundSpeed <= -Foreground.width * 2) ForegroundSpeed = 0;
+    if (backGroundSpeed <= -backGround.width * 2) backGroundSpeed = 0;
+    if (midGroundSpeed <= -midGround.width * 2) midGroundSpeed = 0;
+    if (foreGroundSpeed <= -foreGround.width * 2) foreGroundSpeed = 0;
 
 
 
-    if (IsKeyPressed(KEY_SPACE) && !player.Jump)
+    if (IsKeyPressed(KEY_SPACE) && !player.jump)
     {
-        player.Jump = true;
-        player.JumpSpeed = JumpSpeed;
+        player.jump = true;
+        player.jumpSpeed = jumpSpeed;
 
     }
 
-    if (player.Jump == true)
+    if (player.jump == true)
     {
-        if (JumpCounter > 0)
+        if (jumpCounter > 0)
         {
-            player.Pos.y -= player.Speed * GetFrameTime();
-            if (player.Pos.y < 0)
+            player.pos.y -= player.speed * GetFrameTime();
+            if (player.pos.y < 0)
             {
-                player.Pos.y = 0;
+                player.pos.y = 0;
             }
         }
     }
 
-    JumpCounter--;
+    jumpCounter--;
 
-    if (JumpCounter == 0)
+    if (jumpCounter == 0)
     {
-        player.Jump = false;
+        player.jump = false;
 
-        if (player.Pos.y > height - player.Height)
+        if (player.pos.y > heightScreen - player.heingt)
         {
-            player.Pos.y = height - player.Height;
+            player.pos.y = heightScreen - player.heingt;
         }
     }
 
-    if (player.Jump == false)
+    if (player.jump == false)
     {
-        player.Pos.y += FallSpeed * GetFrameTime();
-        if (player.Pos.y > height - player.Height)
+        player.pos.y += fallSpeed * GetFrameTime();
+        if (player.pos.y > heightScreen - player.heingt)
         {
-            player.Pos.y = height - player.Height;
+            player.pos.y = heightScreen - player.heingt;
         }
     }
 
-    if (!player.Jump)
+    if (!player.jump)
     {
-        player.JumpSpeed += Gravity * GetFrameTime();
-        player.Pos.y += player.JumpSpeed * GetFrameTime();
+        player.jumpSpeed += gravity * GetFrameTime();
+        player.pos.y += player.jumpSpeed * GetFrameTime();
     }
     else
     {
-        player.JumpSpeed -= Gravity * GetFrameTime();
+        player.jumpSpeed -= gravity * GetFrameTime();
 
-        player.Pos.y -= player.JumpSpeed * GetFrameTime();
+        player.pos.y -= player.jumpSpeed * GetFrameTime();
 
 
-        if (player.Pos.y <= player.InitPos.y - JumpHeight || player.JumpSpeed < 0.0f)
+        if (player.pos.y <= player.initPos.y - jumpHeight || player.jumpSpeed < 0.0f)
         {
-            player.Pos.y = player.InitPos.y - JumpHeight;
-            player.Jump = false;
+            player.pos.y = player.initPos.y - jumpHeight;
+            player.jump = false;
         }
     }
     
@@ -134,17 +136,17 @@ void UpdateGame()
 void HandleTubeMovementAndScoring()
 {
     // Move the tubes to the left
-    PipeX -= 200.0f * GetFrameTime();
+    pipeX -= 200.0f * GetFrameTime();
 
     // Reset tubes when they go off-screen
-    if (PipeX + player.Width <= 0) {
-        PipeX = static_cast<float>(GetScreenWidth());
+    if (pipeX + player.width <= 0) {
+        pipeX = static_cast<float>(GetScreenWidth());
         scoredForTube = false;
     }
 
     // Score when passing through a tube
-    if (PipeX + player.Width <= 0) {
-        PipeX = static_cast<float>(GetScreenWidth());
+    if (pipeX + player.width <= 0) {
+        pipeX = static_cast<float>(GetScreenWidth());
         scoredForTube = false;
     }
 
@@ -154,33 +156,33 @@ void HandleTubeMovementAndScoring()
         // Handle collision logic
         // You might want to set your game state accordingly
         // gameState = GAME_OVER;
-        player.Pos.y = player.InitPos.y;
-        player.Pos.x = player.InitPos.x;
-        PipeReset = true;
-        player.Jump = false;
-        BackgroundSpeed = 0;
-        MidgroundSpeed = 0;
-        ForegroundSpeed = 0;
+        player.pos.y = player.initPos.y;
+        player.pos.x = player.initPos.x;
+        pipeReset = true;
+        player.jump = false;
+        backGroundSpeed = 0;
+        midGroundSpeed = 0;
+        foreGroundSpeed = 0;
         // Additional logic for game over can be added here
     }
 }
 void DrawGame()
 {
 
-	DrawTextureEx(Background, { BackgroundSpeed,0 }, 0, 2, WHITE);
-    DrawTextureEx(Midground, { MidgroundSpeed,0 }, 0, 2, WHITE);
-    DrawTextureEx(Foreground, { ForegroundSpeed,0 }, 0, 2, WHITE);
+	DrawTextureEx(backGround, { backGroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(midGround, { midGroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(foreGround, { foreGroundSpeed,0 }, 0, 2, WHITE);
    
 
-	DrawTextureEx(Background, { static_cast<int>(Background.width * 2) + BackgroundSpeed,0 }, 0, 2, WHITE);
-    DrawTextureEx(Midground, { static_cast<int>(Midground.width * 2) + MidgroundSpeed,0 }, 0, 2, WHITE);
-    DrawTextureEx(Foreground, { static_cast<int>(Foreground.width * 2) + ForegroundSpeed,0 }, 0, 2, WHITE);
+	DrawTextureEx(backGround, { static_cast<int>(backGround.width * 2) + backGroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(midGround, { static_cast<int>(midGround.width * 2) + midGroundSpeed,0 }, 0, 2, WHITE);
+    DrawTextureEx(foreGround, { static_cast<int>(foreGround.width * 2) + foreGroundSpeed,0 }, 0, 2, WHITE);
   
 
-    DrawRectangle(static_cast<int>(player.Pos.x), static_cast<int>(player.Pos.y), static_cast<int>(player.Width), static_cast<int>(player.Height), RED);
+    DrawRectangle(static_cast<int>(player.pos.x), static_cast<int>(player.pos.y), static_cast<int>(player.width), static_cast<int>(player.heingt), RED);
 	//Pipes
-    DrawRectangle(static_cast<int>(PipeX), 0, static_cast<int>(player.Width), FreeSpace_A, DARKGREEN); // Top
-    DrawRectangle(static_cast<int>(PipeX), (GetScreenHeight() - FreeSpace_B), static_cast<int>(player.Width), FreeSpace_B, DARKGREEN); // Bottom
+    DrawRectangle(static_cast<int>(pipeX), 0, static_cast<int>(player.width), freeSpace_A, DARKGREEN); // Top
+    DrawRectangle(static_cast<int>(pipeX), (GetScreenHeight() - freeSpace_B), static_cast<int>(player.width), freeSpace_B, DARKGREEN); // Bottom
 
 
 }

@@ -5,26 +5,26 @@
 #include "Credits.h"
 #include "Exit.h"
 
-static float BackgroundSpeed = 0;
-static Texture2D Background;
+static float backGroundSpeed = 0;
+static Texture2D backGround;
 
 void MainMenu() {
 
 
-    const int height = 768;
-    const int width = 1024;
+    const int heightScreen = 768;
+    const int widthScreen = 1024;
     Vector2 Mouse = { -100.0f, -100.0f };
 
-    InitWindow(width, height, "Penguin Dream");
+    InitWindow(widthScreen, heightScreen, "Penguin Dream");
 
     GameScreen currentScreen = GameScreen::TITLE;
     bool isGameOn = true;
 
 
 
-    Background = LoadTexture("res/BackGround.png");
-    BackgroundSpeed -= 0.001f;
-    if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
+    backGround = LoadTexture("res/BackGround.png");
+    backGroundSpeed -= 0.001f;
+    if (backGroundSpeed <= -backGround.width * 2) backGroundSpeed = 0;
 
 
     // Initialize the game state outside of the game loop
@@ -61,8 +61,8 @@ void MainMenu() {
         BeginDrawing();
         ClearBackground(BLACK);
 
-        DrawTextureEx(Background, { BackgroundSpeed,0 }, 0, 2, WHITE);
-        DrawTextureEx(Background, { static_cast<int>(Background.width * 2) + BackgroundSpeed,0 }, 0, 2, WHITE);
+        DrawTextureEx(backGround, { backGroundSpeed,0 }, 0, 2, WHITE);
+        DrawTextureEx(backGround, { static_cast<int>(backGround.width * 2) + backGroundSpeed,0 }, 0, 2, WHITE);
 
         switch (currentScreen) {
         case GameScreen::TITLE:

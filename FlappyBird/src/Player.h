@@ -3,12 +3,12 @@
 
 struct Player
 {
-	Vector2 Pos;
-	Vector2 InitPos;
-	float Speed;
-	float Height;
-	float Width;
-	bool Jump;
-	float JumpSpeed;
+	Vector2 pos;
+	Vector2 initPos;
+	float speed;
+	float heingt;
+	float width;
+	bool jump;
+	float jumpSpeed;
 
 };

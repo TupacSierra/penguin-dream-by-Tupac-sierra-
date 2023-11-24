@@ -2,10 +2,10 @@
 
 void InitPlayer(Player& player)
 {
-	player.InitPos = { 100, 384 };
-	player.Pos = {player.InitPos.x, player.InitPos.y};
-	player.Speed = 300;
-	player.Height = 40;
-	player.Width = 40;
-	player.Jump = false;
+	player.initPos = { 100, 384 };
+	player.pos = {player.initPos.x, player.initPos.y};
+	player.speed = 300;
+	player.heingt = 40;
+	player.width = 40;
+	player.jump = false;
 }
