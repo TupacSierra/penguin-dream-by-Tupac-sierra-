@@ -2,8 +2,12 @@
 
 #include "Tittle.h"
 
+
+
 void DrawTittle(Vector2& Mouse)
 {
+  
+
 
     //Game Tittle
     DrawText("Penguin Dream", static_cast<int>(GetScreenWidth()) / 2 - 200, static_cast<int>(GetScreenHeight()) / 2 - 200, 70, GOLD);

@@ -5,7 +5,12 @@
 #include "Credits.h"
 #include "Exit.h"
 
+static float BackgroundSpeed = 0;
+static Texture2D Background;
+
 void MainMenu() {
+
+
     const int height = 768;
     const int width = 1024;
     Vector2 Mouse = { -100.0f, -100.0f };
@@ -14,6 +19,13 @@ void MainMenu() {
 
     GameScreen currentScreen = GameScreen::TITLE;
     bool isGameOn = true;
+
+
+
+    Background = LoadTexture("res/BackGround.png");
+    BackgroundSpeed -= 0.001f;
+    if (BackgroundSpeed <= -Background.width * 2) BackgroundSpeed = 0;
+
 
     // Initialize the game state outside of the game loop
     InitGame();
@@ -48,6 +60,9 @@ void MainMenu() {
 
         BeginDrawing();
         ClearBackground(BLACK);
+
+        DrawTextureEx(Background, { BackgroundSpeed,0 }, 0, 2, WHITE);
+        DrawTextureEx(Background, { static_cast<int>(Background.width * 2) + BackgroundSpeed,0 }, 0, 2, WHITE);
 
         switch (currentScreen) {
         case GameScreen::TITLE:
