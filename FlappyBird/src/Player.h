@@ -9,4 +9,6 @@ struct Player
 	float Height;
 	float Width;
 	bool Jump;
+	float JumpSpeed;
+
 };

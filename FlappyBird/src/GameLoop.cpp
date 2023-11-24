@@ -17,6 +17,11 @@ static Texture2D Foreground;
 const int height = 768;
 const int width = 1024;
 
+const float Gravity = 1000.0f;
+const float JumpSpeed = 500.0f;
+const float JumpHeight = 100.0f;
+
+
 bool scoredForTube = false;
 int score = 0;
 Vector2 playerDestination;
@@ -64,55 +69,67 @@ void UpdateGame()
     if (MidgroundSpeed <= -Midground.width * 2) MidgroundSpeed = 0;
     if (ForegroundSpeed <= -Foreground.width * 2) ForegroundSpeed = 0;
 
-    // Move the tubes to the left
-    PipeX -= 200.0f * GetFrameTime();
 
-    // Check if the player collided or went out of bounds
-    if (player.Pos.y > height || CheckCollisionWithTubes()) {
-        // Handle game over state
-        // You might want to set your game state accordingly
-        // gameState = GAME_OVER;
-        player.Pos.y = player.InitPos.y;
-        player.Pos.x = player.InitPos.x;
-        PipeReset = true;
-        player.Jump = false;
-        BackgroundSpeed = 0;
-        MidgroundSpeed = 0;
-        ForegroundSpeed = 0;
-        // Additional logic for game over can be added here
-    }
 
-    // If the player presses W, initiate a jump
-    if (IsKeyPressed(KEY_W) && player.Pos.y > 0) {
+    if (IsKeyPressed(KEY_SPACE) && !player.Jump)
+    {
         player.Jump = true;
-        JumpCounter = 960;
+        player.JumpSpeed = JumpSpeed;
+
     }
 
-    // Handle player jump
-    if (player.Jump == true) {
-        if (JumpCounter > 0) {
+    if (player.Jump == true)
+    {
+        if (JumpCounter > 0)
+        {
             player.Pos.y -= player.Speed * GetFrameTime();
-            if (player.Pos.y < 0) {
+            if (player.Pos.y < 0)
+            {
                 player.Pos.y = 0;
             }
         }
-        JumpCounter--;
-        if (JumpCounter == 0) {
-            player.Jump = false;
+    }
+
+    JumpCounter--;
+
+    if (JumpCounter == 0)
+    {
+        player.Jump = false;
+
+        if (player.Pos.y > height - player.Height)
+        {
+            player.Pos.y = height - player.Height;
         }
     }
 
-    // If the player is not jumping, apply falling speed
-    if (player.Jump == false) {
+    if (player.Jump == false)
+    {
         player.Pos.y += FallSpeed * GetFrameTime();
+        if (player.Pos.y > height - player.Height)
+        {
+            player.Pos.y = height - player.Height;
+        }
     }
 
-    // Handle tube movement and scoring
-    HandleTubeMovementAndScoring();
+    if (!player.Jump)
+    {
+        player.JumpSpeed += Gravity * GetFrameTime();
+        player.Pos.y += player.JumpSpeed * GetFrameTime();
+    }
+    else
+    {
+        player.JumpSpeed -= Gravity * GetFrameTime();
 
-    // Update the player destination for rendering
-    playerDestination.x = player.Pos.x;
-    playerDestination.y = player.Pos.y;
+        player.Pos.y -= player.JumpSpeed * GetFrameTime();
+
+
+        if (player.Pos.y <= player.InitPos.y - JumpHeight || player.JumpSpeed < 0.0f)
+        {
+            player.Pos.y = player.InitPos.y - JumpHeight;
+            player.Jump = false;
+        }
+    }
+    
 }
 void HandleTubeMovementAndScoring()
 {

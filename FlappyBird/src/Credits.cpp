@@ -5,7 +5,7 @@
 void DrawCredit(Vector2& Mouse)
 {
 	DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", static_cast<int>(GetScreenWidth()) / 2 - 250, GetScreenHeight() / 2 , 20, BLACK);
-	DrawText("Game Develop Tupac Sierra", static_cast<int>(GetScreenWidth()) / 2 - 110, GetScreenHeight() / 2 + 20, 20, BLACK);
+	DrawText("Game Development by Tupac Sierra", static_cast<int>(GetScreenWidth()) / 2 - 110, GetScreenHeight() / 2 + 20, 20, BLACK);
 
 
 	int goBackButtonX = static_cast<int>(GetScreenWidth()) / 2  - 80;

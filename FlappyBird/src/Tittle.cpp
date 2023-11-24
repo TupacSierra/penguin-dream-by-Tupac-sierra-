@@ -10,7 +10,9 @@ void DrawTittle(Vector2& Mouse)
 
 
     //Game Tittle
-    DrawText("Penguin Dream", static_cast<int>(GetScreenWidth()) / 2 - 200, static_cast<int>(GetScreenHeight()) / 2 - 200, 70, BLACK);
+    DrawText("Penguin Dream", static_cast<int>(GetScreenWidth()) / 2 - 248, static_cast<int>(GetScreenHeight()) / 2 - 203, 70, LIGHTGRAY);
+    DrawText("Penguin Dream", static_cast<int>(GetScreenWidth()) / 2 - 240, static_cast<int>(GetScreenHeight()) / 2 - 200, 70, BLACK);
+ 
 
  
     // Play Button
@@ -68,10 +70,10 @@ void DrawTittle(Vector2& Mouse)
     {
         DrawText("Exit", exitButtonX, exitButtonY, 40, GRAY);
     }
+
     else
     {
         DrawText("Exit", exitButtonX, exitButtonY, 40, BLACK);
-
     }
 
     DrawText("Game Version 0.2", 820, 735, 20, BLACK);
