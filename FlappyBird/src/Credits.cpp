@@ -4,8 +4,8 @@
 
 void DrawCredit(Vector2& Mouse)
 {
-	DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", static_cast<int>(GetScreenWidth()) / 2 - 250, GetScreenHeight() / 2 , 20, GOLD);
-	DrawText("Game Develop Tupac Sierra", static_cast<int>(GetScreenWidth()) / 2 - 110, GetScreenHeight() / 2 + 20, 20, GOLD);
+	DrawText("Game and Textures made by Joan Manuel Rivas Cepeda", static_cast<int>(GetScreenWidth()) / 2 - 250, GetScreenHeight() / 2 , 20, BLACK);
+	DrawText("Game Develop Tupac Sierra", static_cast<int>(GetScreenWidth()) / 2 - 110, GetScreenHeight() / 2 + 20, 20, BLACK);
 
 
 	int goBackButtonX = static_cast<int>(GetScreenWidth()) / 2  - 80;
@@ -19,7 +19,7 @@ void DrawCredit(Vector2& Mouse)
 	}
 	else
 	{
-		DrawText("Go Back Menu", goBackButtonX, goBackButtonY, 30, GOLD);
+		DrawText("Go Back Menu", goBackButtonX, goBackButtonY, 30, BLACK);
 	}
 }
 void CreditLogic(Vector2& Mouse, GameScreen& currentScreen)

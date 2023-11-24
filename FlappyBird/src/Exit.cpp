@@ -3,7 +3,7 @@
 
 void DrawExit(Vector2& Mouse)
 {
-	DrawText("You sure you want to close the game ?", static_cast<int>(GetScreenWidth()) / 8, GetScreenHeight() / 2, 40, GOLD);
+	DrawText("You sure you want to close the game ?", static_cast<int>(GetScreenWidth()) / 8, GetScreenHeight() / 2, 40, BLACK);
 
 	int yesButtonX = static_cast<int>(GetScreenWidth()) / 2 - 80;
 	int yesButtonY = static_cast<int>(GetScreenHeight()) / 2 + 250;
@@ -16,7 +16,7 @@ void DrawExit(Vector2& Mouse)
 	}
 	else
 	{
-		DrawText("Yes", yesButtonX, yesButtonY, 30, GOLD);
+		DrawText("Yes", yesButtonX, yesButtonY, 30, BLACK);
 	}
 
 
@@ -31,7 +31,7 @@ void DrawExit(Vector2& Mouse)
 	}
 	else
 	{
-		DrawText("No", noButtonX, noButtonY, 30, GOLD);
+		DrawText("No", noButtonX, noButtonY, 30, BLACK);
 	}
 
 
