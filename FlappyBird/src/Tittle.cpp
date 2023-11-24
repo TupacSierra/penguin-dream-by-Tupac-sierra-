@@ -10,10 +10,10 @@ void DrawTittle(Vector2& Mouse)
 
  
     // Play Button
-    int playButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int playButtonX = static_cast<int>(GetScreenWidth()) / 2 - 30;
     int playButtonY = static_cast<int>(GetScreenHeight()) / 2 - 50;
     int playButtonWidth = 100;
-    int playButtonHeight = 30;
+    int playButtonHeight = 40;
 
     if (CheckButtonHovered(Mouse, playButtonX, playButtonY, playButtonWidth, playButtonHeight))
     {
@@ -25,10 +25,10 @@ void DrawTittle(Vector2& Mouse)
     }
 
     // How to Play Button
-    int howToPlayButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int howToPlayButtonX = static_cast<int>(GetScreenWidth()) / 2 - 100;
     int howToPlayButtonY = static_cast<int>(GetScreenHeight()) / 2 + 5;
-    int howToPlayButtonWidth = 100;
-    int howToPlayButtonHeight = 30;
+    int howToPlayButtonWidth = 240;
+    int howToPlayButtonHeight = 40;
 
     if (CheckButtonHovered(Mouse, howToPlayButtonX, howToPlayButtonY, howToPlayButtonWidth, howToPlayButtonHeight))
     {
@@ -40,10 +40,10 @@ void DrawTittle(Vector2& Mouse)
     }
 
     // Credits Button
-    int creditsButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int creditsButtonX = static_cast<int>(GetScreenWidth()) / 2 - 60;
     int creditsButtonY = static_cast<int>(GetScreenHeight()) / 2 + 60;
-    int creditsButtonWidth = 100;
-    int creditsButtonHeight = 30;
+    int creditsButtonWidth = 150;
+    int creditsButtonHeight = 40;
 
     if (CheckButtonHovered(Mouse, creditsButtonX, creditsButtonY, creditsButtonWidth, creditsButtonHeight))
     {
@@ -55,9 +55,9 @@ void DrawTittle(Vector2& Mouse)
     }
 
     // Exit Button
-    int exitButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int exitButtonX = static_cast<int>(GetScreenWidth()) / 2 - 25;
     int exitButtonY = static_cast<int>(GetScreenHeight()) / 2 + 115;
-    int exitButtonWidth = 90;
+    int exitButtonWidth = 100;
     int exitButtonHeight = 30;
 
     if (CheckButtonHovered(Mouse, exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight))
@@ -77,7 +77,7 @@ void DrawTittle(Vector2& Mouse)
 void TittleLogic(Vector2& Mouse, GameScreen& currentScreen)
 {
     // Play Button
-    int playButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int playButtonX = static_cast<int>(GetScreenWidth()) / 2 - 30;
     int playButtonY = static_cast<int>(GetScreenHeight()) / 2 - 50;
     int playButtonWidth = 100;
     int playButtonHeight = 30;
@@ -88,10 +88,10 @@ void TittleLogic(Vector2& Mouse, GameScreen& currentScreen)
     }
 
     // How to Play Button
-    int howToPlayButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int howToPlayButtonX = static_cast<int>(GetScreenWidth()) / 2 - 100;
     int howToPlayButtonY = static_cast<int>(GetScreenHeight()) / 2 + 5;
-    int howToPlayButtonWidth = 100;
-    int howToPlayButtonHeight = 30;
+    int howToPlayButtonWidth = 240;
+    int howToPlayButtonHeight = 40;
 
     if (CheckButtonClicked(Mouse, howToPlayButtonX, howToPlayButtonY, howToPlayButtonWidth, howToPlayButtonHeight))
     {
@@ -99,10 +99,10 @@ void TittleLogic(Vector2& Mouse, GameScreen& currentScreen)
     }
 
     // Credits Button
-    int creditsButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int creditsButtonX = static_cast<int>(GetScreenWidth()) / 2 - 60;
     int creditsButtonY = static_cast<int>(GetScreenHeight()) / 2 + 60;
     int creditsButtonWidth = 100;
-    int creditsButtonHeight = 30;
+    int creditsButtonHeight = 40;
 
     if (CheckButtonClicked(Mouse, creditsButtonX, creditsButtonY, creditsButtonWidth, creditsButtonHeight))
     {
@@ -110,10 +110,10 @@ void TittleLogic(Vector2& Mouse, GameScreen& currentScreen)
     }
 
     // Exit Button
-    int exitButtonX = static_cast<int>(GetScreenWidth()) / 2 - 40;
+    int exitButtonX = static_cast<int>(GetScreenWidth()) / 2 - 25;
     int exitButtonY = static_cast<int>(GetScreenHeight()) / 2 + 115;
-    int exitButtonWidth = 90;
-    int exitButtonHeight = 30;
+    int exitButtonWidth = 100;
+    int exitButtonHeight = 40;
 
     if (CheckButtonClicked(Mouse, exitButtonX, exitButtonY, exitButtonWidth, exitButtonHeight))
     {

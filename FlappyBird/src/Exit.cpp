@@ -4,38 +4,59 @@
 void DrawExit(Vector2& Mouse)
 {
 	DrawText("You sure you want to close the game ?", static_cast<int>(GetScreenWidth()) / 8, GetScreenHeight() / 2, 40, GOLD);
-	if (Mouse.y >= ((GetScreenHeight() / 1.5) - 10) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
+
+	int yesButtonX = static_cast<int>(GetScreenWidth()) / 2 - 80;
+	int yesButtonY = static_cast<int>(GetScreenHeight()) / 2 + 250;
+	int yesButtonWidth = 60;
+	int yesButtonHeight = 30;
+
+	if (CheckButtonHovered(Mouse, yesButtonX, yesButtonY, yesButtonWidth, yesButtonHeight))
 	{
-		DrawText("Yes", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 2, 30, GRAY);
+		DrawText("Yes", yesButtonX, yesButtonY, 30, GRAY);
 	}
 	else
 	{
-		DrawText("Yes", static_cast<int>(GetScreenWidth()) / 3, static_cast<int>(GetScreenHeight()) / 2, 30, GOLD);
+		DrawText("Yes", yesButtonX, yesButtonY, 30, GOLD);
 	}
 
-	if (Mouse.y >= ((GetScreenHeight() / 1.5) - 15) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 80))
+
+	int noButtonX = static_cast<int>(GetScreenWidth()) / 2 + 80;
+	int noButtonY = static_cast<int>(GetScreenHeight()) / 2 + 250;
+	int noButtonWidth = 35;
+	int noButtonHeight = 30;
+
+	if (CheckButtonHovered(Mouse, noButtonX, noButtonY, noButtonWidth, noButtonHeight))
 	{
-		DrawText("No", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2, 30, GRAY);
+		DrawText("No", noButtonX, noButtonY, 30, GRAY);
 	}
 	else
 	{
-		DrawText("No", static_cast<int>(GetScreenWidth()) / 2, static_cast<int>(GetScreenHeight()) / 2, 30, GOLD);
+		DrawText("No", noButtonX, noButtonY, 30, GOLD);
 	}
+
+
 }
 void ExitLogic(Vector2& Mouse, GameScreen& currentScreen)
 {
-	if (Mouse.y >= ((GetScreenHeight() / 1.5) - 10) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 2.5) - 30) && Mouse.x <= ((GetScreenWidth() / 2.5) + 90))
+	int yesButtonX = static_cast<int>(GetScreenWidth()) / 2 - 80;
+	int yesButtonY = static_cast<int>(GetScreenHeight()) / 2 + 250;
+	int yesButtonWidth = 60;
+	int yesButtonHeight = 30;
+
+	if (CheckButtonClicked(Mouse, yesButtonX, yesButtonY, yesButtonWidth, yesButtonHeight))
 	{
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-		{
-			currentScreen = GameScreen::EXIT;
-		}
+		currentScreen = GameScreen::EXIT;
 	}
-	if (Mouse.y >= ((GetScreenHeight() / 1.5) - 15) && Mouse.y <= ((GetScreenHeight() / 1.5) + 15) && Mouse.x >= ((GetScreenWidth() / 1.8) - 15) && Mouse.x <= ((GetScreenWidth() / 1.8) + 80))
+
+	int noButtonX = static_cast<int>(GetScreenWidth()) / 2 + 80;
+	int noButtonY = static_cast<int>(GetScreenHeight()) / 2 + 250;
+	int noButtonWidth = 35;
+	int noButtonHeight = 30;
+
+	if (CheckButtonClicked(Mouse, noButtonX, noButtonY, noButtonWidth, noButtonHeight))
 	{
-		if (IsMouseButtonPressed(MOUSE_BUTTON_LEFT))
-		{
-			currentScreen = GameScreen::TITLE;
-		}
+		currentScreen = GameScreen::TITLE;
 	}
+
+
 }
