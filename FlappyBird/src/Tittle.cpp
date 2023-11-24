@@ -67,7 +67,11 @@ void DrawTittle(Vector2& Mouse)
     else
     {
         DrawText("Exit", exitButtonX, exitButtonY, 40, GOLD);
+
     }
+
+    DrawText("Game Version 0.2", 820, 735, 20, WHITE);
+
 }
 
 void TittleLogic(Vector2& Mouse, GameScreen& currentScreen)

@@ -156,6 +156,5 @@ void DrawGame()
     DrawRectangle(static_cast<int>(PipeX), 0, static_cast<int>(player.Width), FreeSpace_A, DARKGREEN); // Top
     DrawRectangle(static_cast<int>(PipeX), (GetScreenHeight() - FreeSpace_B), static_cast<int>(player.Width), FreeSpace_B, DARKGREEN); // Bottom
 
-	DrawText("0.1", 990, 735, 30, WHITE);
 
 }

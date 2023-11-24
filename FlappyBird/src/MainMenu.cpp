@@ -72,6 +72,8 @@ void MainMenu() {
        
     }
 
+   
+
     ExitGame();
     CloseWindow();
 }
